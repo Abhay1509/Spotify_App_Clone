@@ -30,4 +30,4 @@ const Playlist = new mongoose.Schema({
 
 const PlaylistModel = mongoose.model("Playlist", Playlist);
 
-modeule.exports = PlaylistModel;
+module.exports = PlaylistModel;

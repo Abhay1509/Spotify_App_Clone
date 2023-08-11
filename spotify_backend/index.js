@@ -37,18 +37,17 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = "SecretKey";
 
 passport.use(
-  new JwtStrategy(opts, function (jwt_payload, done) {
-    User.findOne({ id: jwt_payload.sub }, function (err, user) {
-      if (err) {
-        return done(err, false);
-      }
+  new JwtStrategy(opts, async function (jwt_payload, done) {
+    try {
+      const user = await User.findOne({ id: jwt_payload.sub }).exec();
       if (user) {
         return done(null, user);
       } else {
         return done(null, false);
-        // or you could create a new account
       }
-    });
+    } catch (error) {
+      return done(error, false);
+    }
   })
 );
 

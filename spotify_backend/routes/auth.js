@@ -9,7 +9,7 @@ router.post("/register", async (req, res) => {
   const { email, password, firstName, lastName, username } = req.body;
 
   // checking if this user already exists.....if exists throw an error
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email: email }).exec();
   if (user) {
     return res
       .status(403)
@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   //Check if the user exists with the given email
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email: email }).exec();
   if (!user) {
     return res.status(403).json({ err: "Invalid credentials" });
   }
