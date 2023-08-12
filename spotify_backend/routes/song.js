@@ -37,11 +37,11 @@ router.get(
 // Get route to get all songs any artist has published
 // I will send an artist id and I want to see all songs that artist has published
 router.get(
-  "/get/artist",
+  "/get/artist/:artistId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { artistId } = req.body;
-    const artist = await User.find({ _id: artistId }); //We can check if the artist does not exist
+    const { artistId } = req.params;
+    const artist = await User.findOne({ _id: artistId }).exec(); //We can check if the artist does not exist
     if (!artist) {
       return res.status(301).json({ err: "Artist does not exist" });
     }
@@ -52,10 +52,10 @@ router.get(
 
 // Get route to get a single song by name
 router.get(
-  "/get/songname",
+  "/get/songname/:songName",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { songName } = req.body;
+    const { songName } = req.params;
     const songs = await Song.find({ name: songName }).exec();
     return res.status(200).json({ data: songs });
   }
