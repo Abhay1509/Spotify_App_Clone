@@ -1,21 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import "./output.css";
+import LoginComponent from "./routes/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          dxsxxs
-        </a>
-      </header>
+    <div className="w-screen h-screen">
+      <BrowserRouter>
+        <Routes>
+          <Route path="bye" element={<div className="bg-blue-500">bye</div>} />
+          <Route path="login" element={<LoginComponent />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
