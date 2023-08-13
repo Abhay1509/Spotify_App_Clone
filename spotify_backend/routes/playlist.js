@@ -11,6 +11,7 @@ router.post(
   "/create",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    const currentUser = req.user;
     const { name, thumbnail, songs } = req.body;
     if (!name || !thumbnail || !songs) {
       return res.status(301).json({ err: "Insufficient data" });
@@ -22,7 +23,7 @@ router.post(
       owner: currentUser._id,
       collaborators: [],
     };
-    const playlist = await playlist.create(playlistData);
+    const playlist = await Playlist.create(playlistData);
     return res.status(200).json(playlist);
   }
 );
@@ -74,7 +75,7 @@ router.post(
     }
     // Step 1: Check if currentUser owns the playlist or is a collaborator
     if (
-      playlist.owner != currentUser._id &&
+      !playlist.owner.equals(currentUser._id) &&
       !playlist.collaborators.includes(currentUser._id)
     ) {
       return res.status(400).json({ err: "Not Allowed" });
