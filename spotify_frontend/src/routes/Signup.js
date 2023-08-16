@@ -14,7 +14,7 @@ const SignupComponent = () => {
   const [lastName, setLastName] = useState("");
 
   const signUp = async () => {
-    if (email != confirmEmail) {
+    if (email !== confirmEmail) {
       alert("Email Fields are not matching");
       return;
     }
