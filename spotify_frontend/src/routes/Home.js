@@ -95,8 +95,11 @@ const Home = () => {
         </div>
         <div className="content p-8 pt-0 overflow-auto">
           <PlaylistView titleText="Focus" cardsData={focusCardsData} />
-          <PlaylistView titleText="Spotify Playlists" cardsData={focusCardsData}/>
-          <PlaylistView titleText="Sound of India" cardsData={focusCardsData}/>
+          <PlaylistView
+            titleText="Spotify Playlists"
+            cardsData={focusCardsData}
+          />
+          <PlaylistView titleText="Sound of India" cardsData={focusCardsData} />
         </div>
       </div>
     </div>
