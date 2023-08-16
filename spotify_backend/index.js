@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
 const port = 8080;
+const cors = require("cors");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
@@ -11,6 +12,7 @@ const authRoutes = require("./routes/auth");
 const songRoutes = require("./routes/song");
 const playlistRoutes = require("./routes/playlist");
 
+app.use(cors());
 app.use(express.json()); // It is done to convert the data coming from req.body in /register api to json first
 
 // Connection to mongo db database
