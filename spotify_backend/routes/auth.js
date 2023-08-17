@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
       .json({ error: " User with this email already exists" });
   }
   // Create a new user in the DB
-  const hashedPassword = bcrypt.hash(password, 10); // we do not store passwords in plain text, convert it into hash password
+  const hashedPassword = await bcrypt.hash(password, 10); // we do not store passwords in plain text, convert it into hash password
   const newUserData = {
     email,
     password: hashedPassword,
