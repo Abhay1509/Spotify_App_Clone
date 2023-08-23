@@ -29,7 +29,7 @@ router.get(
   async (req, res) => {
     const currentUser = req.user;
     // We need to get all songs where artist id == currentUser._id
-    const songs = await Song.find({ artist: req.user._id }).exec();
+    const songs = await Song.find({ artist: req.user._id }).populate("artist").exec();
     return res.status(200).json({ data: songs });
   }
 );

@@ -3,8 +3,34 @@ import IconText from "../components/shared/IconText";
 import { Icon } from "@iconify/react";
 import TextWithHover from "../components/shared/TextWithHover";
 import SingleSongCard from "../components/shared/SingleSongCard";
+import { makeAuthenticatedGETRequest } from "../utils/serverHelpers";
+import { useEffect, useState } from "react";
+import { Howl, Howler } from "howler";
 
 const MyMusic = () => {
+  const [songData, setSongData] = useState([]);
+  const [soundPlayed, setSoundPlayed] = useState(null);
+  
+  const playSound = (songSrc) => {
+    if (soundPlayed) {
+      soundPlayed.stop();
+    }
+    let sound = new Howl({
+      src: [songSrc],
+      html5: true,
+    });
+    setSoundPlayed(sound);
+    sound.play();
+    console.log(sound);
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await makeAuthenticatedGETRequest("/song/get/mysongs");
+      setSongData(response.data);
+    };
+    getData();
+  }, []);
   return (
     <div className="h-full w-full flex">
       <div className="h-full w-1/5 bg-black flex flex-col justify-between pb-10">
@@ -67,11 +93,9 @@ const MyMusic = () => {
             My Songs
           </div>
           <div className="space-y-3 overflow-auto">
-            <SingleSongCard />
-            <SingleSongCard />
-            <SingleSongCard />
-            <SingleSongCard />
-            <SingleSongCard />
+            {songData.map((item) => {
+              return <SingleSongCard info={item} playSound={playSound} />;
+            })}
           </div>
         </div>
       </div>
