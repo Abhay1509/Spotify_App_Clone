@@ -21,7 +21,6 @@ const MyMusic = () => {
     });
     setSoundPlayed(sound);
     sound.play();
-    console.log(sound);
   };
 
   useEffect(() => {

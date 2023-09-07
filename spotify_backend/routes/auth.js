@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  // Get email and password sent bu user from req.body
+  // Get email and password sent by user from req.body
   const { email, password } = req.body;
 
   //Check if the user exists with the given email
