@@ -12,13 +12,24 @@ import { useState } from "react";
 
 function App() {
   const [currentSong, setCurrentSong] = useState(null);
+  const [soundPlayed, setSoundPlayed] = useState(null);
+  const [isPaused, setIsPaused] = useState(true);
   const [cookie, setCookie] = useCookies(["token"]);
   return (
     <div className="w-screen h-screen font-poppins">
       <BrowserRouter>
         {cookie.token ? (
           //logged in routes
-          <songContext.Provider value={{ currentSong, setCurrentSong }}>
+          <songContext.Provider
+            value={{
+              currentSong,
+              setCurrentSong,
+              soundPlayed,
+              setSoundPlayed,
+              isPaused,
+              setIsPaused,
+            }}
+          >
             <Routes>
               <Route path="/home" element={<LoggedInHomeComponent />} />
               <Route path="/uploadSong" element={<UploadSong />} />
